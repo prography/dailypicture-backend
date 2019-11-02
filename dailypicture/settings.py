@@ -99,8 +99,12 @@ WSGI_APPLICATION = 'dailypicture.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': get_secret("DJANGO_DB_NAME"),
+        'USER': get_secret("DJANGO_DB_USERNAME"),
+        'PASSWORD': get_secret("DJANGO_DB_PASSWORD"),
+        'HOST': get_secret("DJANGO_DB_HOST"),
+        'PORT': get_secret("DJANGO_DB_PORT"),
     }
 }
 
@@ -143,6 +147,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# 추가 
+STATIC_ROOT = '/app/static/'
+
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# 호스트 추가
+if DEBUG:
+    ALLOWED_HOSTS += ['*', ]
