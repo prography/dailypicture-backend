@@ -1,5 +1,5 @@
 from django.db import models
-from post.models import Post
+from posts.models import Post
 
 class Image(models.Model):
     post_id = models.ForeignKey(Post, verbose_name='게시글', on_delete=models.CASCADE, related_name='my_image')

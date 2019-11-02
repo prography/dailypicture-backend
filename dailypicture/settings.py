@@ -42,7 +42,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # 유저 설정을 위해서 추가
-AUTH_USER_MODEL = "user.User" 
+AUTH_USER_MODEL = "accounts.User" 
 
 # Application definition
 INSTALLED_APPS = [
@@ -53,12 +53,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    
+    # 확장기능
+    # db한번에 삭제 -> reset_db
+    'django_extensions',
     # app name 추가
-    'user',
-    'post',
-    'image',
-    'video',
+    'accounts',
+    'posts',
+    'images',
+    'videos',
 ]
 
 MIDDLEWARE = [

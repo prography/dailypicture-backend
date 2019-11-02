@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import User
+from accounts.models import User
 
 class Post(models.Model):
     user_id = models.ForeignKey(User, verbose_name='작성자', on_delete=models.CASCADE, related_name='my_post')
