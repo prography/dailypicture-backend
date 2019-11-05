@@ -1,8 +1,8 @@
 #!/bin/bash
 cd app
-python manage.py makemigrations user
-python manage.py makemigrations image
-python manage.py makemigrations post
+python manage.py makemigrations accounts
+python manage.py makemigrations images
+python manage.py makemigrations posts
 
 python manage.py migrate 
 echo "Django is ready.";
