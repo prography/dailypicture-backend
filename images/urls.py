@@ -5,14 +5,10 @@ from . import views
 app_name = 'images'
 
 urlpatterns = [
-    #  image create
-    path('create', views.create, name='create'),
-    # #  get > post images list
-    path('<int:post_id>/list', views.list, name='lists'),
-    #  get > image detail
+    # get => image list, post => create
+    path('<int:post_id>/list', views.list),
+    # get => detail, delete => delete image
     path('<int:id>', views.detail),
-    #  delete > image 
-    path('<int:id>', views.detail)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

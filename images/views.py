@@ -1,31 +1,40 @@
-from django.shortcuts import render
-from posts.models import Post
-from django.views.decorators.csrf import csrf_exempt
+# about image application import
 from .models import Image
+from posts.models import Post
+from .serializers import ImageSerializer
+# about django rest framework import
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
 
-
+# <post_id> images all 
 @csrf_exempt
-def create(request):
-    # post 도 get 으로 바꿔야함
-    if request.method == "POST":
-        # post_id = 1 # dumy. 바꿔야함
-        post = Post.objects.get(pk=1)
-        image = Image.objects.create(post_id=post, url="https://github.com/jangjichang/Today-I-Learn/raw/master/Algorithm/theory/stack.jpg?raw=true")
-        return render(request, 'images/create.json', {'image': request.POST})
-
-def detail(request, id):
-    image = Image.objects.get(pk=id)
-    if request.method == "GET":
-        return render(request, 'images/detail.html', {'image':image})
-    
-    if request.method == "DELETE":
-        return render(request, 'images/delete.html', {'image':"image delete complete"})
-
-
-# 목록에 해당하는 사진 리스트만 반환한다
-def list(request,post_id):
+def list(request, post_id):
     if request.method == "GET":
         post = Post.objects.get(pk=post_id)
         images = Image.objects.filter(post_id=post)
-        if bool(images):
-            return render(request,'images/list.html',{'images' : images})
+        serializer = ImageSerializer(images, many=True)
+        return JsonResponse(serializer.data, safe=False)
+    elif request.method == "POST":
+        data = JSONParser().parse(request)
+        serializer = ImageSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt      
+def detail(request, id):
+    try:
+        image = Image.objects.get(pk=id)
+    except Image.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == "GET":
+        serializer = ImageSerializer(image)
+        return JsonResponse(serializer.data)
+
+    elif request.method == "DELETE":
+        image.delete()
+        return HttpResponse(status=204)
+
