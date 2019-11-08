@@ -9,7 +9,8 @@ urlpatterns = [
     # get => image list, post => create
     path('<int:post_id>/list', views.Imagelist.as_view()),
     # get => detail, delete => delete image
-    path('<int:id>', views.ImageDetail.as_view()),
+    # genetic view 를 쓰면 무조건 pk 를 사용해야되나봄 
+    path('<int:pk>', views.ImageDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
