@@ -12,8 +12,15 @@ import urllib.request
 
 @api_view(['GET'])
 def convertVideo(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
     images = Image.objects.filter(post_id=pk)
-    post = Post.objects.get(pk=pk)
+    if len(images) == 0:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
     # 영상 변환부분
     if not os.path.isdir(settings.MEDIA_ROOT + "/video"):
         os.mkdir(os.path.join(settings.MEDIA_ROOT, "video"))
