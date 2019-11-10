@@ -5,7 +5,7 @@ from . import views
 app_name = 'videos'
 
 urlpatterns = [
-
+    path('<int:pk>/video', views.convertVideo),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

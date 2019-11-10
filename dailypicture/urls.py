@@ -23,3 +23,11 @@ urlpatterns = [
     path('images/', include('images.urls', namespace="image")),
     path('videos/', include('videos.urls', namespace="video")),
 ]
+
+# 로컬 테스트용
+# 로컬 이미지 접근 url
+from django.conf import settings
+from django.conf.urls.static import static
+if settings.DEBUG == True:
+    urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)
