@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'posts',
     'images',
     'videos',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
