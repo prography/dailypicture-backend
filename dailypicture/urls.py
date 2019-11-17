@@ -23,7 +23,7 @@ from rest_framework.authtoken.views import *
 
 router = DefaultRouter()
 # router.register(r'users', UserViewSet)
-# router.register(r'posts', PostViewSet)
+router.register(r'posts', PostViewSet)
 
 
 urlpatterns = [

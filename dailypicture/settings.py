@@ -158,3 +158,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # 호스트 추가
 if DEBUG:
     ALLOWED_HOSTS += ['*', ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+         'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+    )
+}
