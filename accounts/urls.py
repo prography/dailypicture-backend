@@ -8,8 +8,6 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('', UserRegisterAPIView.as_view(),name='register'),
-    path('list/', UserList.as_view()),
-    path('<int:pk>/', UserDetail.as_view()),
+    # path('list/', UserList.as_view()),
+    # path('<int:pk>/', UserDetail.as_view()),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
