@@ -36,13 +36,10 @@ def get_secret(setting, secrets=secrets):
 
 SECRET_KEY = get_secret("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 # 유저 설정을 위해서 추가
 AUTH_USER_MODEL = "accounts.User" 
+
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -93,22 +90,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dailypicture.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_secret("DJANGO_DB_NAME"),
-        'USER': get_secret("DJANGO_DB_USERNAME"),
-        'PASSWORD': get_secret("DJANGO_DB_PASSWORD"),
-        'HOST': get_secret("DJANGO_DB_HOST"),
-        'PORT': get_secret("DJANGO_DB_PORT"),
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -145,6 +126,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+DEBUG = True
+ALLOWED_HOST = []
+
 STATIC_URL = '/static/'
 
 # 추가 
@@ -154,6 +138,3 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-# 호스트 추가
-if DEBUG:
-    ALLOWED_HOSTS += ['*', ]
