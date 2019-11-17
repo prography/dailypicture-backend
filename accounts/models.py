@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 
+<<<<<<< HEAD
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -14,3 +15,7 @@ class User(AbstractUser):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+=======
+class User(AbstractUser):
+    uuid = models.CharField('uuid', max_length=100)
+>>>>>>> 1002
