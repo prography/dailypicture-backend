@@ -2,7 +2,6 @@ from django.conf import settings
 import os
 import shutil
 import cv2
-import urllib.request
 
 
 class Timelapse:
@@ -30,12 +29,9 @@ class Timelapse:
     # 저장소에서 서버로 이미지들을 다운로드
     def save(self):
         for image in self.image_urls:
-            # For local test
-            image_url = "http://localhost:8000/media/" + image
-            urllib.request.urlretrieve(
-                image_url,
-                os.path.join(self.image_path,
-                             image_url.split('/')[-1]))
+            image_url = './media/' + image
+            print(image_url, self.image_path)
+            shutil.copy2(image_url, self.image_path)
 
     # 변환 후 임시로 저장한 이미지 삭제
     def delete(self):
