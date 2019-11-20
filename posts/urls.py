@@ -1,11 +1,14 @@
-from django.urls import path
+from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from . import views
+from .views import *
+from rest_framework.routers import DefaultRouter
+from rest_framework_swagger import renderers
 
 app_name = 'posts'
+router = DefaultRouter()
+# router = DefaultRouter()
+router.register(r'', PostViewSet)
 
 urlpatterns = [
-
+    path('', include(router.urls)),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)

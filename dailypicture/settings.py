@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     'posts',
     'images',
     'videos',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
@@ -157,3 +159,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # 호스트 추가
 if DEBUG:
     ALLOWED_HOSTS += ['*', ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
