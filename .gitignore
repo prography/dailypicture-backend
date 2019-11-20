@@ -1,3 +1,5 @@
+.aws
+
 env.json
 /.idea
 .vscode
@@ -30,9 +32,16 @@ secrets.json
 # OSX Specific files
 .DS_Store
 
-# 로컬에서 사진 올라가는 폴더
+# local image path
 media/
 
-# 도커 
+# docker
 docker
 docker-compose.yml
+
+
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
