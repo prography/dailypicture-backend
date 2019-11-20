@@ -2,7 +2,7 @@ from .base import *
 
 iDEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['dailypicture-cname.ap-northeast-2.elasticbeanstalk']
 
 
 # Database
