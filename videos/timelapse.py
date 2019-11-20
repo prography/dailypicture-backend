@@ -29,7 +29,7 @@ class Timelapse:
     # 저장소에서 서버로 이미지들을 다운로드
     def save(self):
         for image in self.image_urls:
-            image_url = './media/' + image
+            image_url = './dailypicture/media/' + image
             print(image_url, self.image_path)
             shutil.copy2(image_url, self.image_path)
 
