@@ -10,7 +10,7 @@ from .serializers import ImageSerializer
 from rest_framework import mixins
 from rest_framework import generics
 
-class Imagelist(generics.CreateAPIView):
+class ImageCreate(generics.CreateAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
     
