@@ -18,7 +18,6 @@ def convertVideo(request, pk):
     img_urls = [str(img.url) for img in images]
     
     video = Timelapse(img_urls, post.title, pk)
-    video.save()
     video_url = video.make()
 
     return Response({"video_url": video_url}, status.HTTP_200_OK)
