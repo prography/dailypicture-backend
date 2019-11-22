@@ -1,6 +1,6 @@
 from .base import *
 
-iDEBUG = False
+DEBUG = False
 
 ALLOWED_HOSTS = ['dailypicture-cname.ap-northeast-2.elasticbeanstalk.com']
 
