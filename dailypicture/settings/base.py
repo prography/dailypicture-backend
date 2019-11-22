@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     # 확장기능
     # db한번에 삭제 -> reset_db
     'django_extensions',
+    #s3
+    'storages',
     # app name 추가
     'accounts',
     'posts',
