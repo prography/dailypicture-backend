@@ -35,6 +35,10 @@ secrets.json
 # local image path
 media/
 
+# Temporary Media File Storage
+temp_image
+temp_video
+
 # docker
 docker
 docker-compose.yml

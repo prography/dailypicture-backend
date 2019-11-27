@@ -1,9 +1,13 @@
 from .base import *
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['dailypicture-backend-test-dev.ap-northeast-2.elasticbeanstalk.com']
 
+INSTALLED_APPS += [
+    #s3
+    'storages'
+]
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
