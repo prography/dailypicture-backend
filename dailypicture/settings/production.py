@@ -4,6 +4,10 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['dailypicture-cname.ap-northeast-2.elasticbeanstalk.com']
 
+INSTALLED_APPS += [
+    #s3
+    'storages'
+]
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
