@@ -13,6 +13,11 @@ from rest_framework import generics
 class Imagelist(generics.CreateAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
+
+    def perform_create(self, serializer):
+        pk = self.kwargs['post_id']
+        post = Post.objects.get(pk=pk)
+        serializer.save(post_id=post)
     
 class ImageDetail(generics.RetrieveDestroyAPIView):
     queryset = Image.objects.all()

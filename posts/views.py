@@ -4,8 +4,7 @@ from .models import *
 from .serializers import *
 from rest_framework import permissions, generics
 from rest_framework.response import Response
-from .permissions import IsOwnerOrReadOnly
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication,  TokenAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 
