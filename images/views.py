@@ -11,9 +11,12 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
+from dailypicture.permissions import IsOwner
+from rest_framework.permissions import IsAuthenticated
 
 # from rest_framework import Response
 class Imagelist(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated, IsOwner]
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
     def perform_create(self, serializer):
@@ -22,5 +25,6 @@ class Imagelist(generics.CreateAPIView):
     
 
 class ImageDetail(generics.RetrieveDestroyAPIView):
+    permission_classes = [IsAuthenticated, IsOwner]
     queryset = Image.objects.all()
     serializer_class = ImageSerializer

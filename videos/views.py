@@ -1,12 +1,15 @@
 from images.models import Image
 from posts.models import Post
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from videos.timelapse import Timelapse
+from dailypicture.permissions import IsOwner
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(["GET"])
+@permission_classes((IsAuthenticated, IsOwner))
 def convertVideo(request, pk):
     try:
         post = Post.objects.get(pk=pk)
