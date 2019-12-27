@@ -13,7 +13,7 @@ class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(owner=self.request.user)
 
     def create(self, request):
         if request.user.is_anonymous :
@@ -25,7 +25,7 @@ class PostList(generics.ListCreateAPIView):
             content = {'detail': '로그인을 해주세요'}
             return Response(content, status=status.HTTP_404_NOT_FOUND)
         else:
-            queryset = Post.objects.filter(user=request.user)
+            queryset = Post.objects.filter(owner=request.user)
             serializer = PostSerializer(queryset, many=True)
             return Response(serializer.data)
 
