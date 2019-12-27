@@ -5,10 +5,11 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_swagger import renderers
 
 app_name = 'posts'
-router = DefaultRouter()
 # router = DefaultRouter()
-router.register(r'', PostViewSet)
+# router.register(r'', PostViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
+    path('', PostList.as_view()),
+    path('<int:pk>/', PostDetail.as_view()),
 ]
