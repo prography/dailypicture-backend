@@ -4,10 +4,9 @@ from .models import *
 from .serializers import *
 from rest_framework import permissions, generics
 from rest_framework.response import Response
-from .permissions import IsOwnerOrReadOnly
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication,  TokenAuthentication
+from rest_framework import status
+from dailypicture.permissions import IsOwner
 from rest_framework.permissions import IsAuthenticated
-
 
 class PostViewSet(viewsets.ModelViewSet):
     '''
@@ -27,9 +26,8 @@ class PostViewSet(viewsets.ModelViewSet):
         이 return 됨
         ```
     '''
-    authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
 
+    permission_classes = [IsAuthenticated, IsOwner]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
