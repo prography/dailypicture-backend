@@ -25,3 +25,20 @@ def convertVideo(request, pk):
     video_url = video.make('mp4')
 
     return Response({"video_url": video_url}, status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+@permission_classes((IsAuthenticated, IsOwner))
+def convertGif(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+    except Post.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    images = Image.objects.filter(post_id=pk)
+    img_urls = [img.url for img in images]
+
+    gif = Timelapse(img_urls, post.title, str(pk))
+    gif_url = gif.make('gif')
+
+    return Response({"gif_url": gif_url}, status.HTTP_200_OK)

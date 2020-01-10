@@ -10,7 +10,7 @@ from PIL import Image
 class Timelapse:
     image_base_path = "./temp_image"
     timelapse_base_path = "./temp_timelapse"
-    fps = 60
+    fps = 30
     imageps = 5
     try:
         s3 = True
@@ -69,10 +69,10 @@ class Timelapse:
 
     # 영상, animated-gif 변환
     def make(self, file_ext):
-        if file_ext == 'mp4':
+        if file_ext == "mp4":
             timelapse = self.makeVideo()
-        elif file_ext == 'gif':
-            pass
+        elif file_ext == "gif":
+            timelapse = self.makeGif()
         upload_file_name = "video/" + self.post_id + "/" + self.title + "." + file_ext
 
         if self.s3:
@@ -97,6 +97,19 @@ class Timelapse:
             for _ in range(self.fps // self.imageps):
                 writer.write(frame)
         writer.release()
+        return timelapse
+
+    # animated-gif 변환
+    def makeGif(self):
+        images = [Image.open(image) for image in self.image_list]
+        timelapse = os.path.join(self.timelapse_path, self.title + ".gif")
+        images[0].save(
+            timelapse,
+            save_all=True,
+            append_images=images[1:],
+            duration=int(1 / self.imageps * 1000),
+            loop=0,
+        )
         return timelapse
 
     # MEDIA_ROOT에 영상 저장

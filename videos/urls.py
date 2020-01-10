@@ -6,6 +6,7 @@ app_name = 'videos'
 
 urlpatterns = [
     path('<int:pk>/video', views.convertVideo),
+    path('<int:pk>/gif', views.convertGif),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
