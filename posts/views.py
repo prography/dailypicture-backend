@@ -7,30 +7,22 @@ from rest_framework.response import Response
 from rest_framework import status
 from dailypicture.permissions import IsOwner
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 class PostList(generics.ListCreateAPIView):
-    # permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsAuthenticated, IsOwner]
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    def create(self, request):
-        if request.user.is_anonymous :
-            content = {'detail': '로그인을 해주세요'}
-            return Response(content, status=status.HTTP_404_NOT_FOUND)
-
     def list(self, request):
-        if request.user.is_anonymous :
-            content = {'detail': '로그인을 해주세요'}
-            return Response(content, status=status.HTTP_404_NOT_FOUND)
-        else:
-            queryset = Post.objects.filter(owner=request.user)
-            serializer = PostSerializer(queryset, many=True)
-            return Response(serializer.data)
+        queryset = Post.objects.filter(owner=request.user)
+        serializer = PostSerializer(queryset, many=True)
+        return Response(serializer.data)
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsAuthenticated, IsOwner]
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
 
