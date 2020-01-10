@@ -4,11 +4,12 @@ import os
 import shutil
 import cv2
 import boto3
+from PIL import Image
 
 
 class Timelapse:
     image_base_path = "./temp_image"
-    video_base_path = "./temp_video"
+    timelapse_base_path = "./temp_timelapse"
     fps = 60
     imageps = 5
     try:
@@ -26,12 +27,12 @@ class Timelapse:
         self.title = title
         self.image_path = os.path.join(self.image_base_path, post_id)
         self.post_id = post_id
-        self.video_path = os.path.join(self.video_base_path, post_id)
+        self.timelapse_path = os.path.join(self.timelapse_base_path, post_id)
 
         if not os.path.isdir(self.image_path):
             os.makedirs(self.image_path)
-        if not os.path.isdir(self.video_path):
-            os.makedirs(self.video_path)
+        if not os.path.isdir(self.timelapse_path):
+            os.makedirs(self.timelapse_path)
 
         if self.s3:
             self.saveFromS3()
@@ -63,44 +64,51 @@ class Timelapse:
     def delete(self):
         if os.path.isdir(self.image_path):
             shutil.rmtree(self.image_path)
-        if os.path.isdir(self.video_path):
-            shutil.rmtree(self.video_path)
+        if os.path.isdir(self.timelapse_path):
+            shutil.rmtree(self.timelapse_path)
+
+    # 영상, animated-gif 변환
+    def make(self, file_ext):
+        if file_ext == 'mp4':
+            timelapse = self.makeVideo()
+        elif file_ext == 'gif':
+            pass
+        upload_file_name = "video/" + self.post_id + "/" + self.title + "." + file_ext
+
+        if self.s3:
+            self.saveToS3(upload_file_name, timelapse)
+        else:
+            self.saveToLocal(upload_file_name, timelapse)
+
+        self.timelapse_url = default_storage.url(name=upload_file_name)
+        self.delete()
+        return self.timelapse_url
 
     # 영상 변환
-    def make(self):
+    def makeVideo(self):
         images = [cv2.imread(image) for image in self.image_list]
         height, width, channel = images[0].shape
-        video = os.path.join(self.video_path, self.title + ".mp4")
+        timelapse = os.path.join(self.timelapse_path, self.title + ".mp4")
         writer = cv2.VideoWriter(
-            video, cv2.VideoWriter_fourcc(*"mp4v"), self.fps, (width, height)
+            timelapse, cv2.VideoWriter_fourcc(*"mp4v"), self.fps, (width, height)
         )
 
         for frame in images:
             for _ in range(self.fps // self.imageps):
                 writer.write(frame)
         writer.release()
-
-        upload_file_name = "video/" + self.post_id + "/" + self.title + ".mp4"
-
-        if self.s3:
-            self.saveVideoToS3(upload_file_name, video)
-        else:
-            self.saveVideoToLocal(upload_file_name, video)
-
-        self.video_url = default_storage.url(name=upload_file_name)
-        self.delete()
-        return self.video_url
+        return timelapse
 
     # MEDIA_ROOT에 영상 저장
-    def saveVideoToLocal(self, upload_file_name, video):
-        with open(video, "rb") as video_byte:
+    def saveToLocal(self, upload_file_name, timelapse):
+        with open(timelapse, "rb") as timelapse_byte:
             with default_storage.open(upload_file_name, "wb") as save_file:
-                save_file.write(video_byte.read())
+                save_file.write(timelapse_byte.read())
 
-    def saveVideoToS3(self, upload_file_name, video):
+    def saveToS3(self, upload_file_name, timelapse):
         upload_file_path = "media/" + upload_file_name
         self.s3client.upload_file(
-            video,
+            timelapse,
             settings.AWS_STORAGE_BUCKET_NAME,
             upload_file_path,
             ExtraArgs={"ACL": "public-read"},
