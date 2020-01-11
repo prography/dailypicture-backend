@@ -40,27 +40,29 @@ SECRET_KEY = get_secret("SECRET_KEY")
 AUTH_USER_MODEL = "accounts.User" 
 
 
-
-# Application definition
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+]
+THIRD_PARTY_APPS = [
+	'rest_framework',
     # 확장기능
     # db한번에 삭제 -> reset_db
     'django_extensions',
-    # app name 추가
-    'accounts',
-    'posts',
-    'images',
-    'videos',
     'rest_framework.authtoken',
     'rest_framework_swagger',
 ]
+LOCAL_APPS = [
+	'accounts',
+    'posts',
+    'images',
+    'videos',
+]
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,7 +143,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    )
+    ],
 }
