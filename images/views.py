@@ -18,9 +18,7 @@ class ImageCreate(generics.CreateAPIView):
         serializer.save(post=post)
         return 
 
-
 class ImageDetail(generics.RetrieveDestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwner]
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
-
