@@ -13,9 +13,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'owner', 'title', 'thumbnail', 'status', 'created_at','dday']
 
     def get_dday(self, obj):
-        # now = datetime.datetime.now()
         now = timezone.now()
-
         return now.day - obj.created_at.day
 
 class PostDetailSerializer(serializers.HyperlinkedModelSerializer):
