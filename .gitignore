@@ -43,9 +43,12 @@ temp_video
 docker
 docker-compose.yml
 
+# static file
+.static/*
 
 
 # Elastic Beanstalk Files
+.ebextensions/*
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
