@@ -14,7 +14,8 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_dday(self, obj):
         now = timezone.now()
-        return now.day - obj.created_at.day
+        return (now - obj.created_at).days
+
 
 class PostDetailSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
