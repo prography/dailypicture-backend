@@ -14,7 +14,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_days_count(self, obj):
         now = datetime.now().date()
-        return (now - obj.created_at).days + 1
+        return (now - obj.created_at).days
 
 class PostDetailSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
