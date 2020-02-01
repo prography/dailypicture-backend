@@ -2,20 +2,19 @@ from rest_framework import serializers
 from .models import *
 # from images.models import Image
 from images.serializers import ImageSerializer
-from django.utils import timezone
+from datetime import datetime
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    dday = serializers.SerializerMethodField()
+    days_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
-        fields = ['id', 'owner', 'title', 'thumbnail', 'status', 'created_at','dday']
+        fields = ['id', 'owner', 'title', 'thumbnail', 'status', 'created_at','days_count']
 
-    def get_dday(self, obj):
-        now = timezone.now()
-        return (now - obj.created_at).days
-
+    def get_days_count(self, obj):
+        now = datetime.now().date()
+        return (now - obj.created_at).days + 1
 
 class PostDetailSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
