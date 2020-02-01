@@ -16,7 +16,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+ROOT_DIR = os.path.dirname(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -133,10 +133,12 @@ USE_TZ = False
 DEBUG = True
 ALLOWED_HOST = []
 
-STATIC_URL = '/static/'
 
-# 추가 
-STATIC_ROOT = '/app/static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.normpath(os.path.join(BASE_DIR, "../.static")),
+)
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static/static')
 
 MEDIA_URL = '/media/'
 

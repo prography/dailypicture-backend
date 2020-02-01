@@ -26,6 +26,8 @@ sqlparse==0.3.0
 uritemplate==3.0.0
 urllib3==1.25.7
 
+# https 적용 
+uwsgi
 # s3
 django_storages==1.7.2
 boto3==1.10.22
