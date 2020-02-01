@@ -9,7 +9,7 @@ def image_directory_path(instance, filename):
 class Image(models.Model):
     post = models.ForeignKey(Post, verbose_name='게시글', on_delete=models.CASCADE,
                              related_name='images', blank=True, null=True)
-    created_at = models.DateTimeField('작성시간', auto_now_add=True)
+    created_at = models.DateField('작성시간', auto_now_add=True)
     url = models.ImageField(upload_to=image_directory_path)
 
     class Meta:

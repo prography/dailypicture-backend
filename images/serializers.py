@@ -12,4 +12,4 @@ class ImageSerializer(serializers.ModelSerializer):
 
     def get_days_count(self, obj):
         start_day = Post.objects.get(images=obj.id).created_at
-        return (obj.created_at - start_day).days
+        return (obj.created_at - start_day).days + 1
