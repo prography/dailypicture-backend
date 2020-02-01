@@ -26,5 +26,5 @@ class ImageDetail(generics.RetrieveDestroyAPIView):
     serializer_class = ImageSerializer
 
     def perform_destroy(self, instance):
-        default_storage.delete(instance)
+        instance.url.delete(save=False)
         instance.delete()
