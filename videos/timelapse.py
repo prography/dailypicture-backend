@@ -60,6 +60,13 @@ class Timelapse:
             image_path = image.path
             shutil.copy2(image_path, self.image_path)
 
+    # 사진 크기 resize
+    def imageResize(self):
+        for file in self.image_list:
+            image = Image.open(file)
+            image = image.resize((720, 720))
+            image.save(file)
+
     # 변환 후 임시로 저장한 이미지 삭제
     def delete(self):
         if os.path.isdir(self.image_path):
@@ -69,6 +76,7 @@ class Timelapse:
 
     # 영상, animated-gif 변환
     def make(self, file_ext):
+        self.imageResize()
         if file_ext == "mp4":
             timelapse = self.makeVideo()
         elif file_ext == "gif":
