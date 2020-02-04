@@ -16,7 +16,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+ROOT_DIR = os.path.dirname(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -40,27 +40,29 @@ SECRET_KEY = get_secret("SECRET_KEY")
 AUTH_USER_MODEL = "accounts.User" 
 
 
-
-# Application definition
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+]
+THIRD_PARTY_APPS = [
+	'rest_framework',
     # 확장기능
     # db한번에 삭제 -> reset_db
     'django_extensions',
-    # app name 추가
-    'accounts',
-    'posts',
-    'images',
-    'videos',
     'rest_framework.authtoken',
     'rest_framework_swagger',
 ]
+LOCAL_APPS = [
+	'accounts',
+    'posts',
+    'images',
+    'videos',
+]
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,7 +124,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -131,17 +133,19 @@ USE_TZ = True
 DEBUG = True
 ALLOWED_HOST = []
 
-STATIC_URL = '/static/'
 
-# 추가 
-STATIC_ROOT = '/app/static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.normpath(os.path.join(BASE_DIR, "../.static")),
+)
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static/static')
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    )
+    ],
 }

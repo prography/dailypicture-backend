@@ -1,3 +1,4 @@
+from django.core.files.storage import default_storage
 from .models import Image
 from .serializers import ImageSerializer
 from rest_framework import generics
@@ -16,7 +17,7 @@ class ImageCreate(generics.CreateAPIView):
         post = Post.objects.get(pk=post_id)
         super().perform_create(serializer)
         serializer.save(post=post)
-        return 
+        return
 
 
 class ImageDetail(generics.RetrieveDestroyAPIView):
@@ -24,3 +25,6 @@ class ImageDetail(generics.RetrieveDestroyAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
 
+    def perform_destroy(self, instance):
+        instance.url.delete(save=False)
+        instance.delete()

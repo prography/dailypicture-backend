@@ -16,21 +16,23 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import *
 from rest_framework_swagger.views import get_swagger_view
+from django.conf.urls.static import static
+from django.conf import settings
 
 # swagger 뷰
 schema_view = get_swagger_view(title='DailyPicture API')
 
 urlpatterns = [
-    # 토큰
-    path('api-token-auth/', obtain_auth_token),
-    path('api-auth/', include('rest_framework.urls')),
+                  # 토큰
+                  path('api-token-auth/', obtain_auth_token),
+                  path('api-auth/', include('rest_framework.urls')),
 
-    path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls', namespace="user")),
-    path('posts/', include('posts.urls', namespace="post")),
-    path('images/', include('images.urls', namespace="image")),
-    path('videos/', include('videos.urls', namespace="video")),
-   
-    # swagger
-    path('', schema_view)
-]
+                  path('admin/', admin.site.urls),
+                  path('accounts/', include('accounts.urls', namespace="user")),
+                  path('posts/', include('posts.urls', namespace="post")),
+                  path('images/', include('images.urls', namespace="image")),
+                  path('videos/', include('videos.urls', namespace="video")),
+
+                  # swagger
+                  path('', schema_view),
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['dailypicture-backend-test-dev.ap-northeast-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['dailypicture-backend-test-dev.ap-northeast-2.elasticbeanstalk.com', 'test.dailypicture.me']
 
 INSTALLED_APPS += [
     #s3

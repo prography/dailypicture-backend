@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['dailypicture-cname.ap-northeast-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['dailypicture-cname.ap-northeast-2.elasticbeanstalk.com', 'www.dailypicture.me']
 
 INSTALLED_APPS += [
     #s3
@@ -15,7 +15,7 @@ INSTALLED_APPS += [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': get_secret("DJANGO_DB_NAME"),
+        'NAME': get_secret("DJANGO_DB_NAME_PRODUCTION"),
         'USER': get_secret("DJANGO_DB_USERNAME_PRODUCTION"),
         'PASSWORD': get_secret("DJANGO_DB_PASSWORD"),
         'HOST': get_secret("DJANGO_DB_HOST_PRODUCTION"),
