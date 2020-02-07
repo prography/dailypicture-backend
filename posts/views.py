@@ -19,6 +19,8 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
     def perform_destroy(self, instance):
+        instance.thumbnail.delete(save=False)
+
         for image in instance.images.all():
             image.url.delete(save=False)
         instance.delete()
