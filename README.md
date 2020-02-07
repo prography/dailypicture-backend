@@ -59,6 +59,6 @@
 
 
 
-## ScreenShot
+## Screenshot
 
 ![screenshot](https://user-images.githubusercontent.com/26567962/74047146-35764980-4a13-11ea-96f3-5f9d43798d30.png)
