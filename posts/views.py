@@ -6,11 +6,9 @@ from .models import *
 
 class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwner]
-    queryset = Post.objects.all()
 
     def get_queryset(self):
-        queryset = Post.objects.filter(owner=self.request.user)
-        return queryset
+        return Post.objects.filter(owner=self.request.user)
 
     def get_serializer_class(self):
         if self.action == 'retrieve':
