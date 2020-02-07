@@ -13,7 +13,7 @@ class Image(models.Model):
     url = models.ImageField(upload_to=image_directory_path)
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ['id']
 
     def __str__(self):
         return self.post.title
