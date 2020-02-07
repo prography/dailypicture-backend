@@ -14,7 +14,7 @@
 
 
 
-## Getting Started 📖
+## Getting Started 📖
 
 1. git clone
 
