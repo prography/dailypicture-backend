@@ -1,2 +1,42 @@
+certifi==2019.9.11
+cffi==1.13.2
+chardet==3.0.4
+coreapi==2.3.3
+coreschema==0.0.4
+cryptography==2.8
 Django==2.2.6
+django-extensions==2.2.5
+django-rest-swagger==2.2.0
 djangorestframework==3.9.2
+djangorestframework-jwt==1.11.0
+idna==2.8
+itypes==1.1.0
+Jinja2==2.10.3
+jwt==0.6.1
+MarkupSafe==1.1.1
+openapi-codec==1.3.2
+Pillow==6.2.1
+pycparser==2.19
+PyJWT==1.7.1
+pytz==2019.3
+requests==2.22.0
+simplejson==3.16.0
+six==1.12.0
+sqlparse==0.3.0
+uritemplate==3.0.0
+urllib3==1.25.7
+
+# https 적용 
+uwsgi
+# s3
+django_storages==1.7.2
+boto3==1.10.22
+botocore==1.13.22
+
+# postgre
+psycopg2
+psycopg2-binary
+
+# video conversion
+opencv-python==4.1.1.26
+numpy==1.17.3

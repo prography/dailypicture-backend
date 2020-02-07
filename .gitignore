@@ -1,9 +1,54 @@
-*.pyc
-*~
-__pycache__
-venv
-db.sqlite3
-.DS_Store
+.aws
+
 env.json
 /.idea
 .vscode
+
+### Django ###
+*.log
+*.pot
+*.pyc
+*~
+__pycache__/
+local_settings.py
+
+### 가상환경 ###
+.env
+venv
+
+# 디비
+db.sqlite3
+
+.python-version
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+migrations/
+*.py[cod]
+
+secrets.json
+
+# OSX Specific files
+.DS_Store
+
+# local image path
+media/
+
+# Temporary Media File Storage
+temp_image
+temp_video
+
+# docker
+docker
+docker-compose.yml
+
+# static file
+.static/*
+
+
+# Elastic Beanstalk Files
+.ebextensions/*
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
